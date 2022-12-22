@@ -5,16 +5,19 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import routes from "./routes";
 import Catalogue from "./screens/Catalogue";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { StoreProvider } from "./stores";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <NavBar />
-        <Routes>
-          <Route path={routes.CATALOGUE} element={<Catalogue />} />
-        </Routes>
-      </BrowserRouter>
+      <StoreProvider>
+        <BrowserRouter>
+          <NavBar />
+          <Routes>
+            <Route path={routes.CATALOGUE} element={<Catalogue />} />
+          </Routes>
+        </BrowserRouter>
+      </StoreProvider>
     </div>
   );
 }

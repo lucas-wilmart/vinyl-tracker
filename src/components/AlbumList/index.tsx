@@ -1,19 +1,40 @@
 import React from "react";
+import { Button, ButtonGroup } from "react-bootstrap";
 import { Album } from "../../services/audioscrobbler";
+import { AiOutlineStar } from "react-icons/ai";
+import { BsFillBookmarkPlusFill } from "react-icons/bs";
 
 import "./styles.css";
+import { useStore } from "../../stores";
+import { saveAlbum } from "../../stores/albums/actions";
 
 interface AlbumListProps {
   data: Album[];
 }
 
 const AlbumList: React.FC<AlbumListProps> = ({ data }) => {
+  const { dispatch, state } = useStore();
+
+  console.log({ state });
+
+  const onSaveAlbum = (status: "wishlist" | "collection", album: Album) => {
+    dispatch(saveAlbum(album, status));
+  };
+
   return (
     <div className="album-list">
       {data.map((item) => {
         const image = item.image.find(
           (img) => img.size === "large" && img["#text"]
         );
+
+        const onAddToWishList = () => {
+          onSaveAlbum("wishlist", item);
+        };
+
+        const onAddToCollection = () => {
+          onSaveAlbum("collection", item);
+        };
 
         return (
           <div
@@ -47,6 +68,44 @@ const AlbumList: React.FC<AlbumListProps> = ({ data }) => {
                 </div>
               )}
               <div className="album-title">{item.name}</div>
+
+              <ButtonGroup
+                style={{
+                  marginTop: 10,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: 5,
+                  width: "100%",
+                }}
+              >
+                <Button
+                  size="sm"
+                  variant="warning"
+                  style={{
+                    backgroundColor: "#282C34",
+                    color: "#F9CA33",
+                    padding: "10px 0",
+                  }}
+                  title="Ajouter à la Wishlist"
+                  onClick={onAddToWishList}
+                >
+                  <AiOutlineStar size={30} />
+                </Button>
+                <Button
+                  size="sm"
+                  variant="info"
+                  style={{
+                    backgroundColor: "#282C34",
+                    color: "#5CD0F2",
+                    padding: "10px 0",
+                  }}
+                  title="Ajouter à la Collection"
+                  onClick={onAddToCollection}
+                >
+                  <BsFillBookmarkPlusFill size={30} />
+                </Button>
+              </ButtonGroup>
             </div>
           </div>
         );

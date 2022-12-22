@@ -17,8 +17,9 @@ module.exports = {
   },
   plugins: ["react", "@typescript-eslint"],
   rules: {
-    "no-extra-semi": "on",
-    "@typescript-eslint/no-explicit-any": "off"
+    "no-extra-semi": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "quotes": "off"
   },
   ignorePatterns: [".eslintrc.js"],
 };
