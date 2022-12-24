@@ -1,11 +1,11 @@
-import React from "react";
-import "./App.css";
-import NavBar from "./components/NavBar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import routes from "./routes";
-import Catalogue from "./screens/Catalogue";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { StoreProvider } from "./stores";
+import React from 'react'
+import './App.css'
+import NavBar from './components/NavBar'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import routes from './routes'
+import Catalogue from './screens/Catalogue'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { StoreProvider } from './stores'
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         </BrowserRouter>
       </StoreProvider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

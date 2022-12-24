@@ -1,43 +1,39 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 interface UseServiceParameters<Result> {
-  onError?: (error: unknown) => void;
-  onSuccess?: (result: Result) => void;
+  onError?: (error: unknown) => void
+  onSuccess?: (result: Result) => void
 }
 
-type PromiseResult<T extends (...args: any[]) => Promise<any>> = Awaited<
-  ReturnType<T>
->;
+type PromiseResult<T extends (...args: any[]) => Promise<any>> = Awaited<ReturnType<T>>
 
-export default function useService<
-  ServiceCallBack extends (...args: any[]) => Promise<any>
->(
+export default function useService<ServiceCallBack extends (...args: any[]) => Promise<any>>(
   callback: ServiceCallBack,
   params?: UseServiceParameters<PromiseResult<ServiceCallBack>>
 ) {
-  const [pending, setPending] = useState(false);
-  const [data, setData] = useState<PromiseResult<ServiceCallBack>>();
+  const [pending, setPending] = useState(false)
+  const [data, setData] = useState<PromiseResult<ServiceCallBack>>()
 
   const request = async (...args: Parameters<ServiceCallBack>) => {
-    setPending(true);
+    setPending(true)
     try {
-      const result = await callback(...args);
-      setData(result);
+      const result = await callback(...args)
+      setData(result)
 
       if (params?.onSuccess) {
-        params.onSuccess(result);
+        params.onSuccess(result)
       }
     } catch (error) {
       if (params?.onError) {
-        params.onError(error);
+        params.onError(error)
       }
     }
-    setPending(false);
-  };
+    setPending(false)
+  }
 
   return {
     request,
     pending,
-    data,
-  };
+    data
+  }
 }

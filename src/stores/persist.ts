@@ -1,46 +1,40 @@
-import { useEffect } from "react";
-import { save, get } from "../utils/storage";
+import { useEffect } from 'react'
+import { save, get } from '../utils/storage'
 
-export const persistKey = "store_persist";
+export const persistKey = 'store_persist'
 
-export function applyPersistToInitialState<S extends object>(
-  initialState: S
-): S {
-  const clone = Object.assign({}, initialState);
+export function applyPersistToInitialState<S extends object>(initialState: S): S {
+  const clone = Object.assign({}, initialState)
 
-  const persistedStore = get(persistKey);
+  const persistedStore = get(persistKey)
 
   if (!persistedStore) {
-    return initialState;
+    return initialState
   }
 
   return Object.keys(persistedStore).reduce((result, key) => {
-    return { ...result, [key]: persistedStore[key] };
-  }, clone);
+    return { ...result, [key]: persistedStore[key] }
+  }, clone)
 }
 
-export function usePersist<S extends object>(
-  store: S,
-  whitelist: string[],
-  isConnected: boolean
-) {
+export function usePersist<S extends object>(store: S, whitelist: string[], isConnected: boolean) {
   useEffect(
     () => {
       if (isConnected) {
         const persistObject = whitelist.reduce((result, key) => {
           return {
             ...result,
-            [key]: store[key as keyof S],
-          };
-        }, {});
+            [key]: store[key as keyof S]
+          }
+        }, {})
 
-        save(persistKey, persistObject);
+        save(persistKey, persistObject)
       }
     },
     Object.keys(store)
       .filter((key) => whitelist.includes(key))
       .map((key) => {
-        return store[key as keyof S];
+        return store[key as keyof S]
       })
-  );
+  )
 }

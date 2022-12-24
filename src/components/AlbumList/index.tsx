@@ -1,67 +1,65 @@
-import React from "react";
-import { Button, ButtonGroup } from "react-bootstrap";
-import { Album } from "../../services/audioscrobbler";
-import { AiOutlineStar } from "react-icons/ai";
-import { BsFillBookmarkPlusFill } from "react-icons/bs";
+import React from 'react'
+import { Button, ButtonGroup } from 'react-bootstrap'
+import { Album } from '../../services/audioscrobbler'
+import { AiOutlineStar } from 'react-icons/ai'
+import { BsFillBookmarkPlusFill } from 'react-icons/bs'
 
-import "./styles.css";
-import { useStore } from "../../stores";
-import { saveAlbum } from "../../stores/albums/actions";
+import './styles.css'
+import { useStore } from '../../stores'
+import { saveAlbumToCollection, saveAlbumToWishlist } from '../../stores/albums/actions'
+import { getAlbumByUrl } from '../../stores/albums/selectors'
 
 interface AlbumListProps {
-  data: Album[];
+  data: Album[]
 }
 
 const AlbumList: React.FC<AlbumListProps> = ({ data }) => {
-  const { dispatch, state } = useStore();
+  const { dispatch, state } = useStore()
 
-  console.log({ state });
+  console.log({ state })
 
-  const onSaveAlbum = (status: "wishlist" | "collection", album: Album) => {
-    dispatch(saveAlbum(album, status));
-  };
+  const onSaveAlbumToCollection = (album: Album) => {
+    dispatch(saveAlbumToCollection(album))
+  }
+
+  const onSaveAlbumToWishlist = (album: Album) => {
+    dispatch(saveAlbumToWishlist(album))
+  }
 
   return (
     <div className="album-list">
       {data.map((item) => {
-        const image = item.image.find(
-          (img) => img.size === "large" && img["#text"]
-        );
+        const image = item.image.find((img) => img.size === 'large' && img['#text'])
+
+        const storedAlbum = getAlbumByUrl(item.url, state)
 
         const onAddToWishList = () => {
-          onSaveAlbum("wishlist", item);
-        };
+          onSaveAlbumToWishlist(item)
+        }
 
         const onAddToCollection = () => {
-          onSaveAlbum("collection", item);
-        };
+          onSaveAlbumToCollection(item)
+        }
 
         return (
           <div
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
             }}
             key={item.url}
           >
             <div className="album-tile">
-              {image && (
-                <img
-                  src={image["#text"]}
-                  alt={`album: ${item.name}`}
-                  width="150"
-                  height="150"
-                />
-              )}
+              {image && <img src={image['#text']} alt={`album: ${item.name}`} width="150" height="150" />}
               {!image && (
                 <div
                   style={{
                     width: 150,
                     height: 150,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
                   }}
                 >
                   Image non disponible
@@ -72,20 +70,20 @@ const AlbumList: React.FC<AlbumListProps> = ({ data }) => {
               <ButtonGroup
                 style={{
                   marginTop: 10,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   padding: 5,
-                  width: "100%",
+                  width: '100%'
                 }}
               >
                 <Button
                   size="sm"
                   variant="warning"
                   style={{
-                    backgroundColor: "#282C34",
-                    color: "#F9CA33",
-                    padding: "10px 0",
+                    backgroundColor: '#282C34',
+                    color: '#F9CA33',
+                    padding: '10px 0'
                   }}
                   title="Ajouter à la Wishlist"
                   onClick={onAddToWishList}
@@ -96,9 +94,9 @@ const AlbumList: React.FC<AlbumListProps> = ({ data }) => {
                   size="sm"
                   variant="info"
                   style={{
-                    backgroundColor: "#282C34",
-                    color: "#5CD0F2",
-                    padding: "10px 0",
+                    backgroundColor: '#282C34',
+                    color: '#5CD0F2',
+                    padding: '10px 0'
                   }}
                   title="Ajouter à la Collection"
                   onClick={onAddToCollection}
@@ -108,10 +106,10 @@ const AlbumList: React.FC<AlbumListProps> = ({ data }) => {
               </ButtonGroup>
             </div>
           </div>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}
 
-export default AlbumList;
+export default AlbumList

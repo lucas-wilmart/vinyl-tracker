@@ -1,43 +1,65 @@
-import { Album } from "../../services/audioscrobbler";
-import { ActionMap } from "./../index";
-import { AlbumsStorePayload, EActionTypes } from "./actions";
+import { Album } from '../../services/audioscrobbler'
+import { ActionMap } from './../index'
+import { AlbumsStorePayload, EActionTypes } from './actions'
 
-export type AlbumStoreActionTypes =
-  ActionMap<AlbumsStorePayload>[keyof ActionMap<AlbumsStorePayload>];
+export type AlbumStoreActionTypes = ActionMap<AlbumsStorePayload>[keyof ActionMap<AlbumsStorePayload>]
 
 export interface IAlbumStoreState {
-  wishlist: Album[];
-  collection: Album[];
+  list: { data: Album; folder: 'wishlist' | 'collection' }[]
 }
 
 export const initialState: IAlbumStoreState = {
-  wishlist: [],
-  collection: [],
-};
+  list: []
+}
 
-const reducer = (
-  state: IAlbumStoreState,
-  action: AlbumStoreActionTypes
-): IAlbumStoreState => {
-  const newState = { ...state };
+const reducer = (state: IAlbumStoreState, action: AlbumStoreActionTypes): IAlbumStoreState => {
+  const newList = [...state.list]
+
+  const findAlbumIndexByUrl = (url: string) => newList.findIndex((item) => item.data.url === url)
+
+  let albumIndex
 
   switch (action.type) {
-    case EActionTypes.SAVE_ALBUM:
-      if (action.payload.status === "collection") {
-        newState.collection.push(action.payload.album);
-      } else if (action.payload.status === "wishlist") {
-        newState.wishlist.push(action.payload.album);
+    case EActionTypes.ADD_TO_WISHLIST:
+      if (findAlbumIndexByUrl(action.payload.url) === -1) {
+        newList.push({ data: action.payload, folder: 'wishlist' })
       }
 
       return {
-        ...newState,
-      };
+        ...state,
+        list: newList
+      }
+
+    case EActionTypes.ADD_TO_COLLECTION:
+      albumIndex = findAlbumIndexByUrl(action.payload.url)
+
+      if (albumIndex !== -1) {
+        newList.splice(albumIndex, 1)
+      }
+
+      newList.push({ data: action.payload, folder: 'collection' })
+
+      return {
+        ...state,
+        list: newList
+      }
+
+    case EActionTypes.REMOVE_ALBUM:
+      albumIndex = findAlbumIndexByUrl(action.payload.url)
+      if (albumIndex !== -1) {
+        newList.splice(albumIndex, 1)
+      }
+
+      return {
+        ...state,
+        list: newList
+      }
 
     default:
       return {
-        ...state,
-      };
+        ...state
+      }
   }
-};
+}
 
-export default reducer;
+export default reducer

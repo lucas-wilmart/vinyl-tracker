@@ -1,53 +1,44 @@
-import React from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-import routes from "../../routes";
+import React from 'react'
+import { Container, Nav, Navbar } from 'react-bootstrap'
+import { useLocation } from 'react-router-dom'
+import routes from '../../routes'
 
 const sidebar = [
   {
     path: routes.CATALOGUE,
-    name: "Catalogue",
+    name: 'Catalogue'
   },
   {
     path: routes.COLLECTION,
-    name: "Collection",
+    name: 'Collection'
   },
   {
     path: routes.WISHLIST,
-    name: "Wishlist",
-  },
-];
+    name: 'Wishlist'
+  }
+]
 
 const NavBar: React.FC = () => {
-  const location = useLocation();
+  const location = useLocation()
 
-  console.log({ location });
+  console.log({ location })
 
   return (
-    <Navbar
-      bg="dark"
-      variant="dark"
-      fixed="top"
-      style={{ borderBottom: "solid 1px #a3b6c9" }}
-    >
+    <Navbar bg="dark" variant="dark" fixed="top" style={{ borderBottom: 'solid 1px #a3b6c9' }}>
       <Container>
         <Navbar.Brand href="#home">Vinyl Tracker</Navbar.Brand>
         <Nav>
           {sidebar.map((item) => {
             return (
-              <Nav.Link
-                key={item.path}
-                href={item.path}
-                active={item.path === location.pathname}
-              >
+              <Nav.Link key={item.path} href={item.path} active={item.path === location.pathname}>
                 {item.name}
               </Nav.Link>
-            );
+            )
           })}
         </Nav>
       </Container>
     </Navbar>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar
