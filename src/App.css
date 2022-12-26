@@ -1,13 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
-  background-color: #282c34;
-  color: white;
-  height: 100%;
+  @apply bg-secondary-dark pt-20 text-white;
   min-height: 100vh;
-  padding-top: 70px;
 }
 
-.App h1 {
-  width: 100%;
-  text-align: center;
-  margin: 20px 0;
+.App a {
+  text-decoration: none;
+  @apply text-gray-600;
+}
+
+.App a.active {
+  @apply text-white;
+}
+
+.App a:hover {
+  @apply text-gray-300;
 }

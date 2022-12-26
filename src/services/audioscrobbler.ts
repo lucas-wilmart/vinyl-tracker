@@ -1,4 +1,4 @@
-const apiKey = process.env.REACT_APP_AUDIOSCROBBLER_API_KEY
+const apiKey = import.meta.env.VITE_AUDIOSCROBBLER_API_KEY
 const baseUrl = 'http://ws.audioscrobbler.com/2.0/'
 const defaultParameters = {
   api_key: apiKey as string,

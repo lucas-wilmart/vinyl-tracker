@@ -1,16 +1,11 @@
-import React from 'react'
-import { Spinner } from 'react-bootstrap'
+import React from "react";
 
 interface ILoader {
-  color?: string
+  color?: string;
 }
 
-const Loader: React.FC<ILoader> = ({ color = 'white' }) => {
-  return (
-    <Spinner animation="border" role="status" color={color}>
-      <span className="visually-hidden">Loading...</span>
-    </Spinner>
-  )
-}
+const Loader: React.FC<ILoader> = ({ color = "white" }) => {
+  return <span className="">Loading...</span>;
+};
 
-export default Loader
+export default Loader;

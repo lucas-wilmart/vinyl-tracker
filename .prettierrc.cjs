@@ -1,7 +1,7 @@
-module.exports = {
+module.imports = {
   semi: false,
   singleQuote: true,
   printWidth: 120,
   tabWidth: 2,
-  trailingComma: 'none'
-}
+  trailingComma: "none",
+};

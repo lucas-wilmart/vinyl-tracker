@@ -1,25 +1,13 @@
 .album-list {
-  padding-top: 50px;
+  padding: 50px 0;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 40px;
 }
 
-.album-tile {
-  padding: 30px;
-  border-radius: 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #212529;
-  width: 220px;
-  border: solid 1px #bfd7ea;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.album-tile img {
-  border-radius: 10%;
+.album-tile-buttons {
+  @apply p-2 border flex-1 flex justify-center hover:opacity-75 shadow-lg;
 }
 
 .album-title {

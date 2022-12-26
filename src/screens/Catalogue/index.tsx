@@ -1,46 +1,46 @@
-import React, { ChangeEventHandler, useEffect, useState } from 'react'
-import Form from 'react-bootstrap/Form'
-import AlbumList from '../../components/AlbumList'
-import Loader from '../../components/Loader'
-import useService from '../../hooks/useService'
-import { searchAlbums } from '../../services/audioscrobbler'
-import './styles.css'
+import React, { ChangeEventHandler, useEffect, useState } from "react";
+import AlbumList from "../../components/AlbumList";
+import Loader from "../../components/Loader";
+import TextInput from "../../components/TextInput";
+import useService from "../../hooks/useService";
+import { searchAlbums } from "../../services/audioscrobbler";
 
 const Catalogue: React.FC = () => {
-  const [search, setSearch] = useState<string>('')
+  const [search, setSearch] = useState<string>("");
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setSearch(event.currentTarget.value)
-  }
+    setSearch(event.currentTarget.value);
+  };
 
-  const { data, request, pending } = useService<typeof searchAlbums>(searchAlbums)
+  const { data, request, pending } =
+    useService<typeof searchAlbums>(searchAlbums);
 
   useEffect(() => {
     if (search) {
-      request(search)
+      request(search);
     }
-  }, [search])
+  }, [search]);
 
   return (
-    <div className="search-results">
-      <Form.Control onChange={onChange} placeholder="Rechercher un nom d'album..." />
+    <div>
+      <div className="container m-auto px-4">
+        <TextInput
+          onChange={onChange}
+          placeholder="Rechercher un nom d'album..."
+        />
+      </div>
 
       {pending && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 50
-          }}
-        >
+        <div className="flex justify-center items-center m-20">
           <Loader />
         </div>
       )}
 
-      <div>{data && <AlbumList data={data.results.albummatches.album} />}</div>
+      <div>
+        <AlbumList data={data ? data.results.albummatches.album : undefined} />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Catalogue
+export default Catalogue;
