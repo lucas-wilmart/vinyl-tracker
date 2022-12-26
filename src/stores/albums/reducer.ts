@@ -4,8 +4,13 @@ import { AlbumsStorePayload, EActionTypes } from './actions'
 
 export type AlbumStoreActionTypes = ActionMap<AlbumsStorePayload>[keyof ActionMap<AlbumsStorePayload>]
 
+export interface IAlbumStoreData {
+  data: Album
+  folder: 'wishlist' | 'collection'
+}
+
 export interface IAlbumStoreState {
-  list: { data: Album; folder: 'wishlist' | 'collection' }[]
+  list: IAlbumStoreData[]
 }
 
 export const initialState: IAlbumStoreState = {
