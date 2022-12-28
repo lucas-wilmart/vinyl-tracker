@@ -21,8 +21,8 @@ const AlbumList: React.FC<AlbumListProps> = ({ data }) => {
     dispatch(saveAlbumToWishlist(album))
   }
 
-  const onRemoveAlbum = (album: Album) => {
-    dispatch(removeAlbum(album.url))
+  const onRemoveAlbum = (album: Album, type: 'collection' | 'wishlist') => {
+    dispatch(removeAlbum(album, type))
   }
 
   return (
@@ -40,8 +40,8 @@ const AlbumList: React.FC<AlbumListProps> = ({ data }) => {
 
           const folder = storedAlbum ? storedAlbum.folder : undefined
 
-          const onRemove = () => {
-            onRemoveAlbum(item)
+          const onRemove = (type: 'collection' | 'wishlist') => {
+            onRemoveAlbum(item, type)
           }
 
           const onAddToWishList = () => {

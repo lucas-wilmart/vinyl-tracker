@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-secondary-dark;
+}
+
 .App {
   @apply bg-secondary-dark pt-20 text-white;
   min-height: 100vh;
@@ -18,4 +22,8 @@
 
 .App a:hover {
   @apply text-gray-300;
+}
+
+.App h1 {
+  @apply w-full text-center text-3xl;
 }

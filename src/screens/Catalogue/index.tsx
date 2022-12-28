@@ -1,33 +1,29 @@
-import React, { ChangeEventHandler, useEffect, useState } from "react";
-import AlbumList from "../../components/AlbumList";
-import Loader from "../../components/Loader";
-import TextInput from "../../components/TextInput";
-import useService from "../../hooks/useService";
-import { searchAlbums } from "../../services/audioscrobbler";
+import React, { ChangeEventHandler, useEffect, useState } from 'react'
+import AlbumList from '../../components/AlbumList'
+import Loader from '../../components/Loader'
+import TextInput from '../../components/TextInput'
+import useService from '../../hooks/useService'
+import { searchAlbums } from '../../services/audioscrobbler'
 
 const Catalogue: React.FC = () => {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>('')
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setSearch(event.currentTarget.value);
-  };
+    setSearch(event.currentTarget.value)
+  }
 
-  const { data, request, pending } =
-    useService<typeof searchAlbums>(searchAlbums);
+  const { data, request, pending } = useService<typeof searchAlbums>(searchAlbums)
 
   useEffect(() => {
     if (search) {
-      request(search);
+      request(search)
     }
-  }, [search]);
+  }, [search])
 
   return (
-    <div>
+    <div className="pb-10">
       <div className="container m-auto px-4">
-        <TextInput
-          onChange={onChange}
-          placeholder="Rechercher un nom d'album..."
-        />
+        <TextInput onChange={onChange} placeholder="Rechercher un nom d'album..." />
       </div>
 
       {pending && (
@@ -38,9 +34,15 @@ const Catalogue: React.FC = () => {
 
       <div>
         <AlbumList data={data ? data.results.albummatches.album : undefined} />
+
+        {data && (
+          <div className="my-10 flex justify-center items-center">
+            <button className="bg-blue-600 text-white rounded-xl px-24 py-4">Voir plus...</button>
+          </div>
+        )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Catalogue;
+export default Catalogue

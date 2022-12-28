@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import { Album } from '../../services/audioscrobbler'
 
 export enum EActionTypes {
@@ -15,6 +16,8 @@ export type AlbumsStorePayload = {
 }
 
 export const saveAlbumToCollection = (album: Album) => {
+  toast.success(`"${album.name}" a bien été ajouté à votre Collection`)
+
   return {
     type: EActionTypes.ADD_TO_COLLECTION,
     payload: album
@@ -22,17 +25,21 @@ export const saveAlbumToCollection = (album: Album) => {
 }
 
 export const saveAlbumToWishlist = (album: Album) => {
+  toast.success(`"${album.name}" a bien été ajouté à votre Wishlist`)
+
   return {
     type: EActionTypes.ADD_TO_WISHLIST,
     payload: album
   }
 }
 
-export const removeAlbum = (url: string) => {
+export const removeAlbum = (album: Album, type: 'wishlist' | 'collection') => {
+  toast.success(`"${album.name}" a bien été retiré de la ${type}`)
+
   return {
     type: EActionTypes.REMOVE_ALBUM,
     payload: {
-      url
+      url: album.url
     }
   }
 }

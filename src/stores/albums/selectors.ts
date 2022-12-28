@@ -1,3 +1,4 @@
+import { Album } from '../../services/audioscrobbler'
 import { IStore } from './../index'
 import { IAlbumStoreData } from './reducer'
 
@@ -9,3 +10,6 @@ const filterByFolder = (list: IAlbumStoreData[], folder: string) => list.filter(
 export const getWishlist = (state: IStore) => filterByFolder(state.albums.list, 'wishlist').map(albumStoreDataToAlbum)
 export const getCollection = (state: IStore) =>
   filterByFolder(state.albums.list, 'collection').map(albumStoreDataToAlbum)
+
+export const searchIntoList = (list: Album[], search: string) =>
+  list.filter((item) => item.name.toLowerCase().includes(search) || item.artist.toLowerCase().includes(search))

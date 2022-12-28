@@ -2,14 +2,14 @@ import React, { ChangeEventHandler, useMemo, useState } from 'react'
 import AlbumList from '../../components/AlbumList'
 import TextInput from '../../components/TextInput'
 import { useStore } from '../../stores'
-import { getWishlist, searchIntoList } from '../../stores/albums/selectors'
+import { getCollection, searchIntoList } from '../../stores/albums/selectors'
 
-const Wishlist: React.FC = () => {
+const Collection: React.FC = () => {
   const [search, setSearch] = useState('')
   const { state } = useStore()
 
   const data = useMemo(() => {
-    const result = getWishlist(state)
+    const result = getCollection(state)
 
     return search ? searchIntoList(result, search) : result
   }, [state.albums.list, search])
@@ -20,10 +20,10 @@ const Wishlist: React.FC = () => {
 
   return (
     <div>
-      <h1 className="mb-8">Votre Wishlist</h1>
+      <h1 className="mb-8">Votre Collection</h1>
 
       <div className="container m-auto px-4">
-        <TextInput onChange={onSearchChange} placeholder="Rechercher album dans votre wishlist..." />
+        <TextInput onChange={onSearchChange} placeholder="Rechercher album dans votre collection..." />
       </div>
 
       <AlbumList data={data} />
@@ -31,4 +31,4 @@ const Wishlist: React.FC = () => {
   )
 }
 
-export default Wishlist
+export default Collection

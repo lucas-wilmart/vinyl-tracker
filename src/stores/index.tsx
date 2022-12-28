@@ -34,9 +34,11 @@ interface IStoreProvider {
   children: React.ReactNode
 }
 
-const mainReducer = ({ albums }: IStore, action: any) => ({
-  albums: albumsReducer(albums, action)
-})
+const mainReducer = ({ albums }: IStore, action: any) => {
+  return {
+    albums: albumsReducer(albums, action)
+  }
+}
 
 export const StoreProvider: React.FC<IStoreProvider> = ({ children }) => {
   const [state, dispatch] = useReducer(
