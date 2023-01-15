@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <StoreProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
           <NavBar />
           <Routes>
             <Route path={routes.CATALOGUE} element={<Catalogue />} />
