@@ -31,9 +31,14 @@ export default function useService<ServiceCallBack extends (...args: any[]) => P
     setPending(false)
   }
 
+  const clearData = () => {
+    setData(undefined)
+  }
+
   return {
     request,
     pending,
-    data
+    data,
+    clearData
   }
 }

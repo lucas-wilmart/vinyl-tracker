@@ -12,11 +12,13 @@ const Catalogue: React.FC = () => {
     setSearch(event.currentTarget.value)
   }
 
-  const { data, request, pending } = useService<typeof searchAlbums>(searchAlbums)
+  const { data, request, pending, clearData } = useService<typeof searchAlbums>(searchAlbums)
 
   useEffect(() => {
     if (search) {
       request(search)
+    } else {
+      clearData()
     }
   }, [search])
 
