@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify'
-import { Album } from '../../services/audioscrobbler'
+import { Album } from '../../services/last.fm'
 
 export enum EActionTypes {
   ADD_TO_WISHLIST = 'ADD_TO_WISHLIST',

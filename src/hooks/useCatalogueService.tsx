@@ -1,5 +1,5 @@
 import { ChangeEventHandler, useEffect, useState } from 'react'
-import { Album, searchAlbums } from '../services/audioscrobbler'
+import { Album, searchAlbums } from '../services/last.fm'
 import useService from './useService'
 
 const useCatalogue = () => {

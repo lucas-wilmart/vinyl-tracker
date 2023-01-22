@@ -1,5 +1,5 @@
 import React from 'react'
-import { Album } from '../../services/audioscrobbler'
+import { Album } from '../../services/last.fm'
 import './styles.css'
 import { useStore } from '../../stores'
 import { removeAlbum, saveAlbumToCollection, saveAlbumToWishlist } from '../../stores/albums/actions'

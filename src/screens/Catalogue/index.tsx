@@ -1,9 +1,11 @@
 import React, { ChangeEventHandler, useEffect, useState } from 'react'
 import AlbumList from '../../components/AlbumList'
 import Loader from '../../components/Loader'
+import TagList from '../../components/TagList'
 import TextInput from '../../components/TextInput'
+import TopArtists from '../../components/TopArtists'
 import useService from '../../hooks/useService'
-import { searchAlbums } from '../../services/audioscrobbler'
+import { searchAlbums } from '../../services/last.fm'
 
 const Catalogue: React.FC = () => {
   const [search, setSearch] = useState<string>('')
@@ -24,6 +26,10 @@ const Catalogue: React.FC = () => {
 
   return (
     <div className="pb-10">
+      <TagList />
+
+      <TopArtists />
+
       <div className="container m-auto px-4">
         <TextInput onChange={onChange} placeholder="Rechercher un nom d'album..." />
       </div>

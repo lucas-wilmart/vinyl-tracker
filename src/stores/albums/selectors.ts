@@ -1,4 +1,4 @@
-import { Album } from '../../services/audioscrobbler'
+import { Album } from '../../services/last.fm'
 import { IStore } from './../index'
 import { IAlbumStoreData } from './reducer'
 

@@ -1,4 +1,4 @@
-import { Album } from '../../services/audioscrobbler'
+import { Album } from '../../services/last.fm'
 import { ActionMap } from './../index'
 import { AlbumsStorePayload, EActionTypes } from './actions'
 
